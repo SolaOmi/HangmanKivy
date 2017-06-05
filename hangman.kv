@@ -1,0 +1,112 @@
+#:kivy 1.9.1
+#: import hex kivy.utils.get_color_from_hex
+
+<HangmanBoard>:
+    # Background
+    canvas:
+        Color:
+            rgba: hex('#963e48')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    # Borders
+        Color:
+            rgba: hex('#FFD700')
+        # Horizontal lines
+        Line:
+            points: 0, 10, root.width, 10
+        Line:
+            points: 0, 15, root.width, 15
+        Line:
+            points: 0, root.top-10, root.width, root.top-10
+        Line:
+            points: 0, root.top-15, root.width, root.top-15
+
+        # Vertical lines
+        Line:
+            points: 10, 0, 10, root.top
+        Line:
+            points: 15, 0, 15, root.top
+        Line:
+            points: root.width-10, 0, root.width-10, root.top
+        Line:
+            points: root.width-15, 0, root.width-15, root.top
+
+    orientation: 'vertical'
+
+    Button:
+        pos_hint: {'center_x':0.5}
+        size_hint: 0.95, 0.03
+        background_normal: ''
+        background_down:''
+        background_color: 0,0,0,0
+    Button:
+        id: label1
+        pos_hint: {'center_x':0.5}
+        size_hint: 0.95, 0.09
+        bold: True
+    GridLayout:
+        pos_hint: {'center_x':0.5}
+        size_hint: 0.95, 0.76
+        cols: 2
+        BoxLayout:
+            orientation: 'vertical'
+            BoxLayout:
+                orientation: 'vertical'
+                Button:
+                    id: label2A
+                    text: 'Button1AA'
+                Button:
+                    id: label2B
+                    text: 'Button1AB'
+            Button:
+                text: 'Button1B'
+            BoxLayout:
+                orientation: 'vertical'
+                Button:
+                    id: label2D
+                    text: 'Button1CA'
+                Button:
+                    id: label2E
+                    text: 'Button1CB'
+            BoxLayout:
+                orientation: 'vertical'
+                Button:
+                    id: label2F
+                    text: 'Button1DA'
+                Button:
+                    id: label2G
+                    text: 'Button1DB'
+        Button:
+            id: label3
+            text: 'Button2'
+    TextInput:
+        id: label4
+        pos_hint: {'center_x':0.5}
+        size_hint: 0.95, 0.09
+        cols: 1
+    Button:
+        pos_hint: {'center_x':0.5}
+        size_hint: 0.95, 0.03
+        background_normal: ''
+        background_down:''
+        background_color: 0,0,0,0
+<Label>:
+    #canvas:
+        #Color:
+            #rgba: [0, 0, 1, 1]
+        #Rectangle:
+            #size: self.size
+            #pos: self.pos
+
+<Button>:
+    #background_normal: ''
+    #background_down: ''
+	#background_color: hex('#963e48')
+    #color: hex('#FFFFFF')
+    #color: 0, 1, 0, 1
+    halign: 'center'
+    valign: 'top'
+    font_size: 40
+    text_size: root.width, root.height
