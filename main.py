@@ -15,8 +15,11 @@ from kivy.uix.boxlayout import BoxLayout
 FPS = 1 / 60
 WINDOWWIDTH = 500
 WINDOWHEIGHT = 600
-RESIZABLE = 0
 NUM_OF_GUESSES = 5
+INNER_MARGIN = 15
+OUTER_MARGIN = 10
+BACKGROUND_COLOR = '#963e48'
+BORDER_LINE_COLOR = '#FFD700'
 
 class HangmanBoard(BoxLayout):
 
@@ -26,7 +29,7 @@ class HangmanBoard(BoxLayout):
         words = f. readlines()
 
     words = [i.strip() for i in words]
-    category = words[0]
+    category = words[0].upper()
     full_word = words[randint(1, len(words)-1)]
     empty_word = ['_' if i.isalpha() else i for i in full_word]
     misses = []
@@ -49,27 +52,40 @@ class HangmanBoard(BoxLayout):
         else:
             self.misses.append(guess)
 
-    def update(self, *args):
+    def update(self, dt):
 
-        self.ids['label1'].text = self.category
-        self.ids['label3'].text = ' '.join(self.empty_word)
+        self.ids['category'].text = self.category
+        self.ids['empty_word'].text = ' '.join(self.empty_word)
 
+        self.win_or_lose()
+
+    def win_or_lose(self):
         if self.full_word == ''.join(self.empty_word):
-            self.ids['label2'].text = 'YOU WIN!'
-            Clock.schedule_once(self.terminate, 5)
+            self.ids['animation'].text = 'YOU WIN!'
+            self.disable_letters()
+            Clock.schedule_once(sys.exit, 5)
         elif NUM_OF_GUESSES == len(self.misses):
-            self.ids['label2'].text = 'YOU LOSE!'
-            Clock.schedule_once(self.terminate, 5)
+            self.ids['animation'].text = 'YOU LOSE!'
+            self.disable_letters()
+            Clock.schedule_once(sys.exit, 5)
 
-    def terminate(self, *args):
-        exit()
+    def disable_letters(self):
+        for k,v in self.ids.items():
+            if k[0:6] == 'letter':
+                v.disabled = True
+
 
 
 class HangmanApp(App):
 
-    Config.set('graphics', 'resizable', RESIZABLE)
+    Config.set('graphics', 'resizable', 0)
     Config.set('graphics', 'width', WINDOWWIDTH)
     Config.set('graphics', 'height', WINDOWHEIGHT)
+
+    IM = INNER_MARGIN
+    OM = OUTER_MARGIN
+    BGCOLOR = BACKGROUND_COLOR
+    BLCOLOR = BORDER_LINE_COLOR
 
     def build(self):
         game = HangmanBoard()

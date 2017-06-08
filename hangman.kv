@@ -1,194 +1,191 @@
-#:kivy 1.9.1
+#: kivy 1.9.1
 #: import hex kivy.utils.get_color_from_hex
 
 <HangmanBoard>:
     # Background
     canvas:
         Color:
-            rgba: hex('#963e48')
+            rgba: hex(app.BGCOLOR)
         Rectangle:
             pos: self.pos
             size: self.size
 
-    # Borders
+    # Border Lines
         Color:
-            rgba: hex('#FFD700')
+            rgba: hex(app.BLCOLOR)
         # Horizontal lines
         Line:
-            points: 0, 10, root.width, 10
+            points: app.OM, app.OM, root.width - app.OM, app.OM
         Line:
-            points: 0, 15, root.width, 15
+            points: app.IM, app.IM, root.width - app.IM, app.IM
         Line:
-            points: 0, root.top-10, root.width, root.top-10
+            points: app.OM, root.top - app.OM, root.width - app.OM, root.top - app.OM
         Line:
-            points: 0, root.top-15, root.width, root.top-15
+            points: app.IM, root.top - app.IM, root.width - app.IM, root.top - app.IM
 
         # Vertical lines
         Line:
-            points: 10, 0, 10, root.top
+            points: app.OM, app.OM, app.OM, root.top - app.OM
         Line:
-            points: 15, 0, 15, root.top
+            points: app.IM, app.IM, app.IM, root.top - app.IM
         Line:
-            points: root.width-10, 0, root.width-10, root.top
+            points: root.width - app.OM, app.OM, root.width - app.OM, root.height - app.OM
         Line:
-            points: root.width-15, 0, root.width-15, root.top
+            points: root.width - app.IM, app.IM, root.width - app.IM, root.height - app.IM
 
     orientation: 'vertical'
 
+    # Space placeholder, shifts elements of boxlayout below border line.
     Button:
         size_hint: 0.92, 0.03
-        background_normal: ''
-        background_down:''
         background_color: 0,0,0,0
+
+    # Holds the category of the word.
     Button:
-        id: label1
+        id: category
         size_hint: 0.92, 0.096
         bold: True
+
+    # Contains the hangman animation (coming soon!!!)
     Button:
-        id: label2
-        #text: 'The Gallows'
+        id: animation
+        text: 'The Gallows'
         size_hint: 0.92, 0.384
+
+    # Contains the empty word to be guessed and updated with correct answers.
     Button:
-        id: label3
+        id: empty_word
         size_hint: 0.92, 0.192
-        pos_hint: {'center_x':0.5}
-        halign: 'center'
-        valign: 'top'
         font_size: 40
         text_size: self.size
+
+    # Grid of all the letters in the alphabet.
     GridLayout:
         cols: 10
-        id: label4
         size_hint: 0.92, 0.288
         pos_hint: {'center_x':0.5}
         Button:
-            id: buttonA
+            id: letterA
             text: 'A'
             on_press: root.letter_click(self)
         Button:
-            id: buttonB
+            id: letterB
             text: 'B'
             on_press: root.letter_click(self)
         Button:
-            id: buttonC
+            id: letterC
             text: 'C'
             on_press: root.letter_click(self)
         Button:
-            id: buttonD
+            id: letterD
             text: 'D'
             on_press: root.letter_click(self)
         Button:
-            id: buttonE
+            id: letterE
             text: 'E'
             on_press: root.letter_click(self)
         Button:
-            id: buttonF
+            id: letterF
             text: 'F'
             on_press: root.letter_click(self)
         Button:
-            id: buttonG
+            id: letterG
             text: 'G'
             on_press: root.letter_click(self)
         Button:
-            id: buttonH
+            id: letterH
             text: 'H'
             on_press: root.letter_click(self)
         Button:
-            id: buttonI
+            id: letterI
             text: 'I'
             on_press: root.letter_click(self)
         Button:
-            id: buttonJ
+            id: letterJ
             text: 'J'
             on_press: root.letter_click(self)
         Button:
-            id: buttonK
+            id: letterK
             text: 'K'
             on_press: root.letter_click(self)
         Button:
-            id: buttonL
+            id: letterL
             text: 'L'
             on_press: root.letter_click(self)
         Button:
-            id: buttonM
+            id: letterM
             text: 'M'
             on_press: root.letter_click(self)
         Button:
-            id: buttonN
+            id: letterN
             text: 'N'
             on_press: root.letter_click(self)
         Button:
-            id: buttonO
+            id: letterO
             text: 'O'
             on_press: root.letter_click(self)
         Button:
-            id: buttonP
+            id: letterP
             text: 'P'
             on_press: root.letter_click(self)
         Button:
-            id: buttonQ
+            id: letterQ
             text: 'Q'
             on_press: root.letter_click(self)
         Button:
-            id: buttonR
+            id: letterR
             text: 'R'
             on_press: root.letter_click(self)
         Button:
-            id: buttonS
+            id: letterS
             text: 'S'
             on_press: root.letter_click(self)
         Button:
-            id: buttonT
+            id: letterT
             text: 'T'
             on_press: root.letter_click(self)
+        # Space holders for the left side of the bottom row of letters.
         Button:
-            id: spaceTaker1
         Button:
-            id: spaceTaker2
         Button:
-            id: buttonU
+            id: letterU
             text: 'U'
             on_press: root.letter_click(self)
         Button:
-            id: buttonV
+            id: letterV
             text: 'V'
             on_press: root.letter_click(self)
         Button:
-            id: buttonW
+            id: letterW
             text: 'W'
             on_press: root.letter_click(self)
         Button:
-            id: buttonX
+            id: letterX
             text: 'X'
             on_press: root.letter_click(self)
         Button:
-            id: buttonY
+            id: letterY
             text: 'Y'
             on_press: root.letter_click(self)
         Button:
-            id: buttonZ
+            id: letterZ
             text: 'Z'
             on_press: root.letter_click(self)
+        # Space holders for the right side of the bottom row of letters.
         Button:
-            id: spaceTaker3
         Button:
-            id: spaceTaker4
+
+    # Space placeholder, shifts elements of boxlayout above border line.
     Button:
         size_hint: 0.92, 0.03
-        background_normal: ''
-        background_down:''
         background_color: 0,0,0,0
 
-
+# Button class to automatically adjust attributes of all buttons.
 <Button>:
-    #background_normal: ''
-    #background_down: ''
-	#background_color: hex('#963e48')
-    #color: hex('#FFFFFF')
-    #color: 0, 1, 0, 1
-    #
+    background_normal: ''
+    background_down: ''
+	background_color: hex(app.BGCOLOR)
     pos_hint: {'center_x':0.5}
     halign: 'center'
     valign: 'top'
     font_size: 40
-    #text_size: root.width, root.height
