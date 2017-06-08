@@ -36,69 +36,149 @@
     orientation: 'vertical'
 
     Button:
-        pos_hint: {'center_x':0.5}
-        size_hint: 0.95, 0.03
+        size_hint: 0.92, 0.03
         background_normal: ''
         background_down:''
         background_color: 0,0,0,0
     Button:
         id: label1
-        pos_hint: {'center_x':0.5}
-        size_hint: 0.95, 0.09
+        size_hint: 0.92, 0.096
         bold: True
-    GridLayout:
-        pos_hint: {'center_x':0.5}
-        size_hint: 0.95, 0.76
-        cols: 2
-        BoxLayout:
-            orientation: 'vertical'
-            BoxLayout:
-                orientation: 'vertical'
-                Button:
-                    id: label2A
-                    text: 'Button1AA'
-                Button:
-                    id: label2B
-                    text: 'Button1AB'
-            Button:
-                text: 'Button1B'
-            BoxLayout:
-                orientation: 'vertical'
-                Button:
-                    id: label2D
-                    text: 'Button1CA'
-                Button:
-                    id: label2E
-                    text: 'Button1CB'
-            BoxLayout:
-                orientation: 'vertical'
-                Button:
-                    id: label2F
-                    text: 'Button1DA'
-                Button:
-                    id: label2G
-                    text: 'Button1DB'
-        Button:
-            id: label3
-            text: 'Button2'
-    TextInput:
-        id: label4
-        pos_hint: {'center_x':0.5}
-        size_hint: 0.95, 0.09
-        cols: 1
     Button:
+        id: label2
+        #text: 'The Gallows'
+        size_hint: 0.92, 0.384
+    Button:
+        id: label3
+        size_hint: 0.92, 0.192
         pos_hint: {'center_x':0.5}
-        size_hint: 0.95, 0.03
+        halign: 'center'
+        valign: 'top'
+        font_size: 40
+        text_size: self.size
+    GridLayout:
+        cols: 10
+        id: label4
+        size_hint: 0.92, 0.288
+        pos_hint: {'center_x':0.5}
+        Button:
+            id: buttonA
+            text: 'A'
+            on_press: root.letter_click(self)
+        Button:
+            id: buttonB
+            text: 'B'
+            on_press: root.letter_click(self)
+        Button:
+            id: buttonC
+            text: 'C'
+            on_press: root.letter_click(self)
+        Button:
+            id: buttonD
+            text: 'D'
+            on_press: root.letter_click(self)
+        Button:
+            id: buttonE
+            text: 'E'
+            on_press: root.letter_click(self)
+        Button:
+            id: buttonF
+            text: 'F'
+            on_press: root.letter_click(self)
+        Button:
+            id: buttonG
+            text: 'G'
+            on_press: root.letter_click(self)
+        Button:
+            id: buttonH
+            text: 'H'
+            on_press: root.letter_click(self)
+        Button:
+            id: buttonI
+            text: 'I'
+            on_press: root.letter_click(self)
+        Button:
+            id: buttonJ
+            text: 'J'
+            on_press: root.letter_click(self)
+        Button:
+            id: buttonK
+            text: 'K'
+            on_press: root.letter_click(self)
+        Button:
+            id: buttonL
+            text: 'L'
+            on_press: root.letter_click(self)
+        Button:
+            id: buttonM
+            text: 'M'
+            on_press: root.letter_click(self)
+        Button:
+            id: buttonN
+            text: 'N'
+            on_press: root.letter_click(self)
+        Button:
+            id: buttonO
+            text: 'O'
+            on_press: root.letter_click(self)
+        Button:
+            id: buttonP
+            text: 'P'
+            on_press: root.letter_click(self)
+        Button:
+            id: buttonQ
+            text: 'Q'
+            on_press: root.letter_click(self)
+        Button:
+            id: buttonR
+            text: 'R'
+            on_press: root.letter_click(self)
+        Button:
+            id: buttonS
+            text: 'S'
+            on_press: root.letter_click(self)
+        Button:
+            id: buttonT
+            text: 'T'
+            on_press: root.letter_click(self)
+        Button:
+            id: spaceTaker1
+        Button:
+            id: spaceTaker2
+        Button:
+            id: buttonU
+            text: 'U'
+            on_press: root.letter_click(self)
+        Button:
+            id: buttonV
+            text: 'V'
+            on_press: root.letter_click(self)
+        Button:
+            id: buttonW
+            text: 'W'
+            on_press: root.letter_click(self)
+        Button:
+            id: buttonX
+            text: 'X'
+            on_press: root.letter_click(self)
+        Button:
+            id: buttonY
+            text: 'Y'
+            on_press: root.letter_click(self)
+        Button:
+            id: buttonZ
+            text: 'Z'
+            on_press: root.letter_click(self)
+        Button:
+            id: spaceTaker3
+        Button:
+            id: spaceTaker4
+    Button:
+        size_hint: 0.92, 0.03
         background_normal: ''
         background_down:''
         background_color: 0,0,0,0
-<Label>:
-    #canvas:
-        #Color:
-            #rgba: [0, 0, 1, 1]
-        #Rectangle:
-            #size: self.size
-            #pos: self.pos
+
 
 <Button>:
     #background_normal: ''
@@ -106,7 +186,9 @@
 	#background_color: hex('#963e48')
     #color: hex('#FFFFFF')
     #color: 0, 1, 0, 1
+    #
+    pos_hint: {'center_x':0.5}
     halign: 'center'
     valign: 'top'
     font_size: 40
-    text_size: root.width, root.height
+    #text_size: root.width, root.height
