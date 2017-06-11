@@ -10,7 +10,7 @@ from random import randint
 from kivy.app import App
 from kivy.clock import Clock
 from kivy.config import Config
-from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.anchorlayout import AnchorLayout
 
 FPS = 1 / 60
 WINDOWWIDTH = 500
@@ -21,7 +21,7 @@ OUTER_MARGIN = 10
 BACKGROUND_COLOR = '#963e48'
 BORDER_LINE_COLOR = '#FFD700'
 
-class HangmanBoard(BoxLayout):
+class HangmanBoard(AnchorLayout):
 
     files = list(filter(lambda x: x.endswith('.txt'), os.listdir()))
     file_in = files[randint(0,len(files)-1)]
@@ -32,7 +32,7 @@ class HangmanBoard(BoxLayout):
     category = words[0].upper()
     full_word = words[randint(1, len(words)-1)]
     empty_word = ['_' if i.isalpha() else i for i in full_word]
-    misses = []
+    misses = 0
 
     def letter_click(self, letter):
 
@@ -50,7 +50,7 @@ class HangmanBoard(BoxLayout):
                     self.empty_word[i] = self.full_word[i]
                     letter.background_color = [0,1,0,0.5]
         else:
-            self.misses.append(guess)
+            self.misses += 1
 
     def update(self, dt):
 
@@ -64,7 +64,7 @@ class HangmanBoard(BoxLayout):
             self.ids['animation'].text = 'YOU WIN!'
             self.disable_letters()
             Clock.schedule_once(sys.exit, 5)
-        elif NUM_OF_GUESSES == len(self.misses):
+        elif NUM_OF_GUESSES == self.misses:
             self.ids['animation'].text = 'YOU LOSE!'
             self.disable_letters()
             Clock.schedule_once(sys.exit, 5)
@@ -78,6 +78,7 @@ class HangmanBoard(BoxLayout):
 
 class HangmanApp(App):
 
+    Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
     Config.set('graphics', 'resizable', 0)
     Config.set('graphics', 'width', WINDOWWIDTH)
     Config.set('graphics', 'height', WINDOWHEIGHT)
