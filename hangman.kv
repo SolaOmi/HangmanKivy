@@ -1,18 +1,18 @@
 #: kivy 1.9.1
-#: import hex kivy.utils.get_color_from_hex
+
 
 <HangmanBoard>:
     # Background
     canvas:
         Color:
-            rgba: hex(app.BGCOLOR)
+            rgba: app.BACKGROUND_COLOR
         Rectangle:
             pos: self.pos
             size: self.size
 
     # Border Lines
         Color:
-            rgba: hex(app.BLCOLOR)
+            rgba: app.BORDER_LINE_COLOR
         # Horizontal lines
         Line:
             points: app.OM, app.OM, root.width - app.OM, app.OM
@@ -52,7 +52,7 @@
             Button:
                 id: restart
                 size_hint_x: 0.1
-                text: 'R'
+                text: 'N'
                 on_press: root.new_game(self)
 
         # Contains the hangman animation (coming soon!!!)
@@ -187,7 +187,7 @@
     background_normal: ''
     background_down: ''
     background_disabled_normal: ''
-	background_color: hex(app.BGCOLOR)
+	background_color: app.BACKGROUND_COLOR
     pos_hint: {'center_x':0.5}
     halign: 'center'
     valign: 'top'

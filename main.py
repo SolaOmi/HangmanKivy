@@ -11,24 +11,27 @@ from kivy.app import App
 from kivy.clock import Clock
 from kivy.config import Config
 from kivy.uix.anchorlayout import AnchorLayout
-from kivy.uix.label import Label
-from kivy.uix.popup import Popup
-from kivy.utils import get_color_from_hex
+
 
 FPS = 1 / 60 # frames per second
 WINDOWWIDTH = 500 # size of window's with in pixels
 WINDOWHEIGHT = 600 # size of window's height in picels
 NUM_OF_GUESSES = 5 # number of guesses before game over
-INNER_MARGIN = 15
-OUTER_MARGIN = 10
-BACKGROUND_COLOR = '#963e48'
-BORDER_LINE_COLOR = '#FFD700'
+INNER_MARGIN = 15 # distance of inner border from window edge in pixels
+OUTER_MARGIN = 10 # distance of outer border from window edge in pixels
 
+#               R    G    B    A
+SALMON      = (0.58,0.24,0.28,1.00)
+GOLD        = (1.00,0.84,0.00,1.00)
+WHITE       = (1.00,1.00,1.00,1.00)
+FADED_WHITE = (1.00,1.00,1.00,0.30)
+LIGHT_RED   = (1.00,0.00,0.00,0.50)
+LIGHT_GREEN = (0.00,1.00,0.00,0.50)
 
-class HangmanBoard(AnchorLayout):
-    # Class that contains the Hangman game
+class HangmanData:
+    # Class that contains the Hangman data
 
-    def start_conditions(*args):
+    def start_conditions():
         # Sets the starting conditions for a new game.
 
         # open up a text file with a category and words.
@@ -45,28 +48,10 @@ class HangmanBoard(AnchorLayout):
 
         return category, word, hidden_word, misses
 
-    category, word, hidden_word, misses = start_conditions()
+class HangmanBoard(AnchorLayout):
+    # Class that contains the Hangman game
 
-    def letter_click(self, letter):
-        # Checks if clicked letter is in the word or not
-
-        letter.disabled = True
-        letter.disabled_color = [1,1,1,1]
-
-        guess = letter.text.lower()
-        answer = self.word.lower()
-
-        # sets letter background to red
-        letter.background_color = [1,0,0,0.5]
-
-        # checks for match, and turns letter background green if correct
-        if guess in answer:
-            for i in range(len(answer)):
-                if guess == answer[i]:
-                    self.hidden_word[i] = self.word[i]
-                    letter.background_color = [0,1,0,0.5]
-        else:
-            self.misses += 1
+    category, word, hidden_word, misses = HangmanData.start_conditions()
 
     def update(self, dt):
         # renders updates of guesses and hidden word, and checks if the game is
@@ -83,30 +68,55 @@ class HangmanBoard(AnchorLayout):
         if self.word == ''.join(self.hidden_word):
             self.ids['animation'].text = 'YOU WIN!'
             self.disable_letters()
-            #Clock.schedule_once(sys.exit, 5)
         elif NUM_OF_GUESSES == self.misses:
             self.ids['animation'].text = 'YOU LOSE!'
             self.disable_letters()
-            #Clock.schedule_once(sys.exit, 5)
+
+    def letter_click(self, letter):
+        # Checks if clicked letter is in the word or not
+
+        letter.disabled = True
+        letter.disabled_color = WHITE
+
+        guess = letter.text.lower()
+        answer = self.word.lower()
+
+        # sets letter background to red
+        letter.background_color = LIGHT_RED
+
+        # checks for match, and turns letter background green if correct
+        if guess in answer:
+            for i in range(len(answer)):
+                if guess == answer[i]:
+                    self.hidden_word[i] = self.word[i]
+                    letter.background_color = LIGHT_GREEN
+        else:
+            self.misses += 1
 
     def disable_letters(self):
-        # disables all remaining letters immediately after game is won or lost.
+        # disables all remaining letter buttons right after game is won or lost.
 
         for k,v in self.ids.items():
             if k[0:6] == 'letter' and v.disabled == False:
                 v.disabled = True
-                v.disabled_color = [1, 1, 1, .3]
+                v.disabled_color = FADED_WHITE
 
-    def new_game(self, *args):
-        # refreshes game board with new game.
-
-        t = self.start_conditions()
-        self.category, self.word, self.hidden_word, self.misses = t
+    def enable_letters(self):
+        # enables letter buttons
 
         for k,v in self.ids.items():
             if k[0:6] == 'letter':
                 v.disabled = False
-                v.background_color = get_color_from_hex(BACKGROUND_COLOR[1:])
+                v.background_color = SALMON
+
+    def new_game(self, *args):
+        # refreshes game board with new game.
+
+        t = HangmanData.start_conditions()
+        self.category, self.word, self.hidden_word, self.misses = t
+
+        self.enable_letters()
+
 
 class HangmanApp(App):
     # App that runs Hangman game.
@@ -120,8 +130,8 @@ class HangmanApp(App):
     # Makes constant variables avaiable to hangman.kv file
     IM = INNER_MARGIN
     OM = OUTER_MARGIN
-    BGCOLOR = BACKGROUND_COLOR
-    BLCOLOR = BORDER_LINE_COLOR
+    BACKGROUND_COLOR = SALMON
+    BORDER_LINE_COLOR = GOLD
 
     def build(self):
         game = HangmanBoard()
