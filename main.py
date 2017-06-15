@@ -11,6 +11,9 @@ from kivy.app import App
 from kivy.clock import Clock
 from kivy.config import Config
 from kivy.uix.anchorlayout import AnchorLayout
+from kivy.uix.label import Label
+from kivy.uix.popup import Popup
+from kivy.utils import get_color_from_hex
 
 FPS = 1 / 60 # frames per second
 WINDOWWIDTH = 500 # size of window's with in pixels
@@ -21,27 +24,34 @@ OUTER_MARGIN = 10
 BACKGROUND_COLOR = '#963e48'
 BORDER_LINE_COLOR = '#FFD700'
 
+
 class HangmanBoard(AnchorLayout):
     # Class that contains the Hangman game
 
-    # open up a text file with a category and words.
-    files = list(filter(lambda x: x.endswith('.txt'), os.listdir()))
-    file_in = files[randint(0,len(files)-1)]
-    with open(file_in, 'r') as f:
-        words = f. readlines()
+    def start_conditions(*args):
+        # Sets the starting conditions for a new game.
 
-    words = [i.strip() for i in words] # potential list of words to guess
-    category = words[0].upper() # category of word to guess
-    word = words[randint(1, len(words)-1)] # word to guess
-    hidden_word = ['_' if i.isalpha() else i for i in word] # word to guess obscured with '_'
-    misses = 0 # number of wrong guesses
+        # open up a text file with a category and words.
+        files = list(filter(lambda x: x.endswith('.txt'), os.listdir()))
+        file_in = files[randint(0,len(files)-1)]
+        with open(file_in, 'r') as f:
+            words = f. readlines()
+
+        words = [i.strip() for i in words] # potential list of words to guess
+        category = words[0].upper() # category of word to guess
+        word = words[randint(1, len(words)-1)] # word to guess
+        hidden_word = ['_' if i.isalpha() else i for i in word] # word to guess obscured with '_'
+        misses = 0 # number of wrong guesses
+
+        return category, word, hidden_word, misses
+
+    category, word, hidden_word, misses = start_conditions()
 
     def letter_click(self, letter):
         # Checks if clicked letter is in the word or not
 
         letter.disabled = True
         letter.disabled_color = [1,1,1,1]
-        letter.background_disabled_normal = ''
 
         guess = letter.text.lower()
         answer = self.word.lower()
@@ -73,20 +83,30 @@ class HangmanBoard(AnchorLayout):
         if self.word == ''.join(self.hidden_word):
             self.ids['animation'].text = 'YOU WIN!'
             self.disable_letters()
-            Clock.schedule_once(sys.exit, 5)
+            #Clock.schedule_once(sys.exit, 5)
         elif NUM_OF_GUESSES == self.misses:
             self.ids['animation'].text = 'YOU LOSE!'
             self.disable_letters()
-            Clock.schedule_once(sys.exit, 5)
+            #Clock.schedule_once(sys.exit, 5)
 
     def disable_letters(self):
         # disables all remaining letters immediately after game is won or lost.
 
         for k,v in self.ids.items():
-            if k[0:6] == 'letter':
+            if k[0:6] == 'letter' and v.disabled == False:
                 v.disabled = True
+                v.disabled_color = [1, 1, 1, .3]
 
+    def new_game(self, *args):
+        # refreshes game board with new game.
 
+        t = self.start_conditions()
+        self.category, self.word, self.hidden_word, self.misses = t
+
+        for k,v in self.ids.items():
+            if k[0:6] == 'letter':
+                v.disabled = False
+                v.background_color = get_color_from_hex(BACKGROUND_COLOR[1:])
 
 class HangmanApp(App):
     # App that runs Hangman game.

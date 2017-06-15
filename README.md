@@ -10,7 +10,7 @@ Todo list:
 - ~~Comment out main file~~
 - Fix text wrap on hidden word
 - Add Hangman animation
-- Add restart after loss or win
+- ~~Add restart after loss or win~~
 
 ![](https://github.com/SolaOmi/HangmanKivy/blob/master/Begin.png)
 ![](https://github.com/SolaOmi/HangmanKivy/blob/master/Mid.png)
