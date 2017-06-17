@@ -55,11 +55,60 @@
                 text: 'N'
                 on_press: root.new_game(self)
 
+
+
         # Contains the hangman animation (coming soon!!!)
-        Button:
-            id: animation
-            text: 'The Gallows'
+        Widget:
+            id: gallows
             size_hint_y: 0.4
+            canvas:
+                Color:
+                    rgba: app.BACKGROUND_COLOR
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                Color:
+                    rgba: [1,1,1,1]
+                # Base
+                Line:
+                    points: self.pos[0] + 5, self.pos[1] + 2, self.pos[0] + self.width - 5, self.pos[1] + 2
+                    width: 2
+                # Pole
+                Line:
+                    points: self.pos[0] + self.width * (2/3), self.pos[1], self.pos[0] + self.width * (2/3), self.pos[1] + self.height
+                    width: 2
+                # Diagonal
+                Line:
+                    points: self.pos[0] + self.width * (5/9), self.pos[1], self.pos[0] + self.width * (2/3), self.pos[1] + self.height * (1/6)
+                    width: 2
+                # Top
+                Line:
+                    points: self.pos[0] + self.width * (2/3), self.pos[1] + self.height, self.pos[0] + self.width * (4/9), self.pos[1] + self.height
+                    width: 2
+                # Rope
+                Line:
+                    points: self.pos[0] + self.width * (4/9), self.pos[1] + self.height, self.pos[0] + self.width * (4/9), self.pos[1] + self.height * (5/6)
+                    width: 2
+
+                # Head
+                Line:
+                    circle: self.pos[0] + self.width * (4/9), self.pos[1] + self.height * (9/12), self.height * (1/12)
+                    width: 2
+                # Body
+                Line:
+                    points: self.pos[0] + self.width * (4/9), self.pos[1] + self.height * (8/12), self.pos[0] + self.width * (4/9), self.pos[1] + self.height * (4/12)
+                    width: 2
+                # Arms
+                Line:
+                    points: self.pos[0] + self.width * (7/18), self.pos[1] + self.height * (13/24), self.pos[0] + self.width * (4/9), self.pos[1] + self.height * (15/24), self.pos[0] + self.width * (9/18), self.pos[1] + self.height * (13/24)
+                    width: 2
+                # Legs
+                Line:
+                    points: self.pos[0] + self.width * (7/18), self.pos[1] + self.height * (2/12), self.pos[0] + self.width * (4/9), self.pos[1] + self.height * (4/12), self.pos[0] + self.width * (9/18), self.pos[1] + self.height * (2/12)
+                    width: 2
+
+
+
 
         # Contains the hidden word to be guessed and updated with correct answers.
         Button:

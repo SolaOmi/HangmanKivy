@@ -9,7 +9,7 @@ Requirements:
 Todo list:
 - ~~Comment out main file~~
 - Fix text wrap on hidden word
-- Add Hangman animation
+- ~~Add Hangman~~ bind to misses and animate
 - ~~Add restart after loss or win~~
 - Create proper icon for restart button
 

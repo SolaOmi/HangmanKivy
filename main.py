@@ -11,6 +11,13 @@ from kivy.app import App
 from kivy.clock import Clock
 from kivy.config import Config
 from kivy.uix.anchorlayout import AnchorLayout
+from kivy.uix.widget import Widget
+
+
+from kivy.graphics.vertex_instructions import (Rectangle,
+                                               Ellipse,
+                                               Line)
+from kivy.graphics.context_instructions import Color
 
 
 FPS = 1 / 60 # frames per second
@@ -27,6 +34,7 @@ WHITE       = (1.00,1.00,1.00,1.00)
 FADED_WHITE = (1.00,1.00,1.00,0.30)
 LIGHT_RED   = (1.00,0.00,0.00,0.50)
 LIGHT_GREEN = (0.00,1.00,0.00,0.50)
+
 
 class HangmanData:
     # Class that contains the Hangman data
@@ -66,10 +74,8 @@ class HangmanBoard(AnchorLayout):
         # checks if the game is won or not
 
         if self.word == ''.join(self.hidden_word):
-            self.ids['animation'].text = 'YOU WIN!'
             self.disable_letters()
         elif NUM_OF_GUESSES == self.misses:
-            self.ids['animation'].text = 'YOU LOSE!'
             self.disable_letters()
 
     def letter_click(self, letter):
@@ -92,6 +98,7 @@ class HangmanBoard(AnchorLayout):
                     letter.background_color = LIGHT_GREEN
         else:
             self.misses += 1
+
 
     def disable_letters(self):
         # disables all remaining letter buttons right after game is won or lost.
@@ -137,6 +144,7 @@ class HangmanApp(App):
         game = HangmanBoard()
         Clock.schedule_interval(game.update, FPS)
         return game
+
 
 
 if __name__ == '__main__':
