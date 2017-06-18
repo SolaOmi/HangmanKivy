@@ -23,7 +23,7 @@ from kivy.graphics.context_instructions import Color
 FPS = 1 / 60 # frames per second
 WINDOWWIDTH = 500 # size of window's with in pixels
 WINDOWHEIGHT = 600 # size of window's height in picels
-NUM_OF_GUESSES = 5 # number of guesses before game over
+NUM_OF_GUESSES = 4 # number of guesses before game over
 INNER_MARGIN = 15 # distance of inner border from window edge in pixels
 OUTER_MARGIN = 10 # distance of outer border from window edge in pixels
 
@@ -34,7 +34,7 @@ WHITE       = (1.00,1.00,1.00,1.00)
 FADED_WHITE = (1.00,1.00,1.00,0.30)
 LIGHT_RED   = (1.00,0.00,0.00,0.50)
 LIGHT_GREEN = (0.00,1.00,0.00,0.50)
-
+NO_COLOR    = (0.00,0.00,0.00,0.00)
 
 class HangmanData:
     # Class that contains the Hangman data
@@ -68,6 +68,7 @@ class HangmanBoard(AnchorLayout):
         self.ids['category'].text = self.category
         self.ids['hidden'].text = ' '.join(self.hidden_word)
 
+        self.hangman_body()
         self.win_or_lose()
 
     def win_or_lose(self):
@@ -77,6 +78,20 @@ class HangmanBoard(AnchorLayout):
             self.disable_letters()
         elif NUM_OF_GUESSES == self.misses:
             self.disable_letters()
+
+    def hangman_body(self):
+        # draws/reveals the hangman body
+
+        body = self.ids['gallows'].canvas.get_group('body')
+        if self.misses == 1:
+            body[0].rgba = WHITE # the head
+        elif self.misses == 2:
+            body[1].rgba = WHITE # the body
+        elif self.misses == 3:
+            body[2].rgba = WHITE # the arms
+        elif self.misses == 4:
+            body[3].rgba = WHITE # the legs
+
 
     def letter_click(self, letter):
         # Checks if clicked letter is in the word or not
@@ -124,6 +139,10 @@ class HangmanBoard(AnchorLayout):
 
         self.enable_letters()
 
+        body = self.ids['gallows'].canvas.get_group('body')
+        for parts in body:
+            parts.rgba = NO_COLOR
+
 
 class HangmanApp(App):
     # App that runs Hangman game.
@@ -139,6 +158,8 @@ class HangmanApp(App):
     OM = OUTER_MARGIN
     BACKGROUND_COLOR = SALMON
     BORDER_LINE_COLOR = GOLD
+    BODY_COLOR = NO_COLOR
+    GALLOW_COLLOR = GOLD #WHITE
 
     def build(self):
         game = HangmanBoard()

@@ -50,25 +50,17 @@
                 size_hint_x: 0.8
                 bold: True
             Button:
-                id: restart
                 size_hint_x: 0.1
                 text: 'N'
                 on_press: root.new_game(self)
 
-
-
-        # Contains the hangman animation (coming soon!!!)
+        # Contains the hangman gallows and the hangman body.
         Widget:
             id: gallows
             size_hint_y: 0.4
             canvas:
                 Color:
-                    rgba: app.BACKGROUND_COLOR
-                Rectangle:
-                    pos: self.pos
-                    size: self.size
-                Color:
-                    rgba: [1,1,1,1]
+                    rgba: app.GALLOW_COLLOR
                 # Base
                 Line:
                     points: self.pos[0] + 5, self.pos[1] + 2, self.pos[0] + self.width - 5, self.pos[1] + 2
@@ -90,31 +82,41 @@
                     points: self.pos[0] + self.width * (4/9), self.pos[1] + self.height, self.pos[0] + self.width * (4/9), self.pos[1] + self.height * (5/6)
                     width: 2
 
+                Color:
+                    group: 'body'
+                    rgba: app.BODY_COLOR
                 # Head
                 Line:
                     circle: self.pos[0] + self.width * (4/9), self.pos[1] + self.height * (9/12), self.height * (1/12)
                     width: 2
+                Color:
+                    group: 'body'
+                    rgba: app.BODY_COLOR
                 # Body
                 Line:
                     points: self.pos[0] + self.width * (4/9), self.pos[1] + self.height * (8/12), self.pos[0] + self.width * (4/9), self.pos[1] + self.height * (4/12)
                     width: 2
+                Color:
+                    group: 'body'
+                    rgba: app.BODY_COLOR
                 # Arms
                 Line:
                     points: self.pos[0] + self.width * (7/18), self.pos[1] + self.height * (13/24), self.pos[0] + self.width * (4/9), self.pos[1] + self.height * (15/24), self.pos[0] + self.width * (9/18), self.pos[1] + self.height * (13/24)
                     width: 2
+                Color:
+                    group: 'body'
+                    rgba: app.BODY_COLOR
                 # Legs
                 Line:
                     points: self.pos[0] + self.width * (7/18), self.pos[1] + self.height * (2/12), self.pos[0] + self.width * (4/9), self.pos[1] + self.height * (4/12), self.pos[0] + self.width * (9/18), self.pos[1] + self.height * (2/12)
                     width: 2
-
-
-
 
         # Contains the hidden word to be guessed and updated with correct answers.
         Button:
             id: hidden
             size_hint_y: 0.2
             text_size: self.size
+
         # Grid of all the letters in the alphabet.
         GridLayout:
             cols: 10
