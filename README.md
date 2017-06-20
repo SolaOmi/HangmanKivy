@@ -11,7 +11,7 @@ Todo list:
 - Fix text wrap on hidden word
 - ~~Add Hangman~~ ~~bind to misses and animate~~
 - ~~Add restart after loss or win~~
-- Create proper icon for restart button
+- ~~Create proper icon for restart button~~
 
 ![](https://github.com/SolaOmi/HangmanKivy/blob/master/Begin.png)
 ![](https://github.com/SolaOmi/HangmanKivy/blob/master/Mid.png)

@@ -53,6 +53,12 @@
                 size_hint_x: 0.1
                 text: 'N'
                 on_press: root.new_game(self)
+                Image:
+                    source: 'icon.png'
+                    y: self.parent.y
+                    x: self.parent.x
+                    size: self.parent.size
+                    allow_stretch: True
 
         # Contains the hangman gallows and the hangman body.
         Widget:
