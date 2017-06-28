@@ -11,21 +11,14 @@ from kivy.app import App
 from kivy.clock import Clock
 from kivy.config import Config
 from kivy.uix.anchorlayout import AnchorLayout
-from kivy.uix.widget import Widget
-
-
-from kivy.graphics.vertex_instructions import (Rectangle,
-                                               Ellipse,
-                                               Line)
-from kivy.graphics.context_instructions import Color
-
 
 FPS = 1 / 60 # frames per second
 WINDOWWIDTH = 500 # size of window's with in pixels
-WINDOWHEIGHT = 600 # size of window's height in picels
+WINDOWHEIGHT = 600 # size of window's height in pixels
 NUM_OF_GUESSES = 4 # number of guesses before game over
 INNER_MARGIN = 15 # distance of inner border from window edge in pixels
 OUTER_MARGIN = 10 # distance of outer border from window edge in pixels
+LINE_LENGTH = 13 # length of single line of capital le.
 
 #               R    G    B    A
 SALMON      = (0.58,0.24,0.28,1.00)
@@ -48,13 +41,22 @@ class HangmanData:
         with open(file_in, 'r') as f:
             words = f. readlines()
 
-        words = [i.strip() for i in words] # potential list of words to guess
-        category = words[0].upper() # category of word to guess
-        word = words[randint(1, len(words)-1)] # word to guess
-        hidden_word = ['_' if i.isalpha() else i for i in word] # word to guess obscured with '_'
-        misses = 0 # number of wrong guesses
+        words = [i.strip() for i in words]
+        category = words[0].upper()
+        word = 'Gone with the Wind' #words[randint(1, len(words)-1)]
+        hidden_word = ['_' if i.isalpha() else i for i in word]
+        misses = 0
+
+        # Properly aligns word/phrase longer than a single line.
+        if len(word) > LINE_LENGTH and ' ' in word[LINE_LENGTH-1:]:
+            space = word[LINE_LENGTH-1:].index(' ') + (LINE_LENGTH-1)
+            hidden_word[space] = '\n'
+        elif len(word) > LINE_LENGTH:
+            space = word[:LINE_LENGTH].rfind(' ')
+            hidden_word[space] = '\n'
 
         return category, word, hidden_word, misses
+
 
 class HangmanBoard(AnchorLayout):
     # Class that contains the Hangman game
@@ -74,7 +76,7 @@ class HangmanBoard(AnchorLayout):
     def win_or_lose(self):
         # checks if the game is won or not
 
-        if self.word == ''.join(self.hidden_word):
+        if [i for i in self.word if i.isalpha()] == [i for i in ''.join(self.hidden_word) if i.isalpha()]:
             self.disable_letters()
         elif NUM_OF_GUESSES == self.misses:
             self.disable_letters()
