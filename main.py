@@ -29,39 +29,35 @@ LIGHT_RED   = (1.00,0.00,0.00,0.50)
 LIGHT_GREEN = (0.00,1.00,0.00,0.50)
 NO_COLOR    = (0.00,0.00,0.00,0.00)
 
-class HangmanData:
-    # Class that contains the Hangman data
+def start_conditions():
+    # Sets the starting conditions for a new game.
 
-    def start_conditions():
-        # Sets the starting conditions for a new game.
+    # open up a text file with a category and words.
+    files = list(filter(lambda x: x.endswith('.txt'), os.listdir()))
+    file_in = files[randint(0,len(files)-1)]
+    with open(file_in, 'r') as f:
+        words = f. readlines()
 
-        # open up a text file with a category and words.
-        files = list(filter(lambda x: x.endswith('.txt'), os.listdir()))
-        file_in = files[randint(0,len(files)-1)]
-        with open(file_in, 'r') as f:
-            words = f. readlines()
+    words = [i.strip() for i in words]
+    category = words[0].upper()
+    word = words[randint(1, len(words)-1)]
+    hidden_word = ['_' if i.isalpha() else i for i in word]
+    misses = 0
 
-        words = [i.strip() for i in words]
-        category = words[0].upper()
-        word = 'Gone with the Wind' #words[randint(1, len(words)-1)]
-        hidden_word = ['_' if i.isalpha() else i for i in word]
-        misses = 0
+    # Properly aligns word/phrase longer than a single line.
+    if len(word) > LINE_LENGTH and ' ' in word[LINE_LENGTH-1:]:
+        space = word[LINE_LENGTH-1:].index(' ') + (LINE_LENGTH-1)
+        hidden_word[space] = '\n'
+    elif len(word) > LINE_LENGTH:
+        space = word[:LINE_LENGTH].rfind(' ')
+        hidden_word[space] = '\n'
 
-        # Properly aligns word/phrase longer than a single line.
-        if len(word) > LINE_LENGTH and ' ' in word[LINE_LENGTH-1:]:
-            space = word[LINE_LENGTH-1:].index(' ') + (LINE_LENGTH-1)
-            hidden_word[space] = '\n'
-        elif len(word) > LINE_LENGTH:
-            space = word[:LINE_LENGTH].rfind(' ')
-            hidden_word[space] = '\n'
-
-        return category, word, hidden_word, misses
-
+    return category, word, hidden_word, misses
 
 class HangmanBoard(AnchorLayout):
     # Class that contains the Hangman game
 
-    category, word, hidden_word, misses = HangmanData.start_conditions()
+    category, word, hidden_word, misses = start_conditions() #HangmanData.start_conditions()
 
     def update(self, dt):
         # renders updates of guesses and hidden word, and checks if the game is
@@ -133,10 +129,10 @@ class HangmanBoard(AnchorLayout):
                 v.disabled = False
                 v.background_color = SALMON
 
-    def new_game(self, *args):
+    def new_game(self):
         # refreshes game board with new game.
 
-        t = HangmanData.start_conditions()
+        t = start_conditions()
         self.category, self.word, self.hidden_word, self.misses = t
 
         self.enable_letters()
