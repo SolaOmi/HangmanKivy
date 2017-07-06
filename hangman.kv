@@ -19,9 +19,13 @@
         Line:
             points: app.IM, app.IM, root.width - app.IM, app.IM
         Line:
-            points: app.OM, root.top - app.OM, root.width - app.OM, root.top - app.OM
+            points:
+                app.OM, root.top - app.OM, \
+                root.width - app.OM, root.top - app.OM
         Line:
-            points: app.IM, root.top - app.IM, root.width - app.IM, root.top - app.IM
+            points:
+                app.IM, root.top - app.IM, \
+                root.width - app.IM, root.top - app.IM
 
         # Vertical lines
         Line:
@@ -29,9 +33,13 @@
         Line:
             points: app.IM, app.IM, app.IM, root.top - app.IM
         Line:
-            points: root.width - app.OM, app.OM, root.width - app.OM, root.height - app.OM
+            points:
+                root.width - app.OM, app.OM, \
+                root.width - app.OM, root.height - app.OM
         Line:
-            points: root.width - app.IM, app.IM, root.width - app.IM, root.height - app.IM
+            points:
+                root.width - app.IM, app.IM, \
+                root.width - app.IM, root.height - app.IM
 
     # Area of the HangmanBoard inside the border lines.
     BoxLayout:
@@ -67,53 +75,75 @@
                     rgba: app.GALLOW_COLLOR
                 # Base
                 Line:
-                    points: self.pos[0] + 5, self.pos[1] + 2, self.pos[0] + self.width - 5, self.pos[1] + 2
                     width: 2
+                    points:
+                        self.pos[0] + 5, self.pos[1] + 2, \
+                        self.pos[0] + self.width - 5, self.pos[1] + 2
                 # Pole
                 Line:
-                    points: self.pos[0] + self.width * (2 / 3), self.pos[1], self.pos[0] + self.width * (2 / 3), self.pos[1] + self.height
                     width: 2
+                    points:
+                        self.pos[0] + self.width * (2 / 3), self.pos[1], \
+                        self.pos[0] + self.width * (2 / 3), self.pos[1] + self.height
                 # Diagonal
                 Line:
-                    points: self.pos[0] + self.width * (5 / 9), self.pos[1], self.pos[0] + self.width * (2 / 3), self.pos[1] + self.height * (1 / 6)
                     width: 2
+                    points:
+                        self.pos[0] + self.width * (5 / 9), self.pos[1], \
+                        self.pos[0] + self.width * (2 / 3), self.pos[1] + self.height * (1 / 6)
                 # Top
                 Line:
-                    points: self.pos[0] + self.width * (2 / 3), self.pos[1] + self.height, self.pos[0] + self.width * (4 / 9), self.pos[1] + self.height
                     width: 2
+                    points:
+                        self.pos[0] + self.width * (2 / 3), self.pos[1] + self.height, \
+                        self.pos[0] + self.width * (4 / 9), self.pos[1] + self.height
                 # Rope
                 Line:
-                    points: self.pos[0] + self.width * (4 / 9), self.pos[1] + self.height, self.pos[0] + self.width * (4 / 9), self.pos[1] + self.height * (5 / 6)
                     width: 2
+                    points:
+                        self.pos[0] + self.width * (4 / 9), self.pos[1] + self.height, \
+                        self.pos[0] + self.width * (4 / 9), self.pos[1] + self.height * (5 / 6)
+
 
                 Color:
                     group: 'body'
                     rgba: app.BODY_COLOR
                 # Head
                 Line:
-                    circle: self.pos[0] + self.width * (4 / 9), self.pos[1] + self.height * (9 / 12), self.height * (1 / 12)
                     width: 2
+                    circle:
+                        self.pos[0] + self.width * (4 / 9), self.pos[1] + self.height * (9 / 12), \
+                        self.height * (1 / 12)
                 Color:
                     group: 'body'
                     rgba: app.BODY_COLOR
                 # Body
                 Line:
-                    points: self.pos[0] + self.width * (4 / 9), self.pos[1] + self.height * (8 / 12), self.pos[0] + self.width * (4 / 9), self.pos[1] + self.height * (4 / 12)
                     width: 2
+                    points:
+                        self.pos[0] + self.width * (4 / 9), self.pos[1] + self.height * (8 / 12), \
+                        self.pos[0] + self.width * (4 / 9), self.pos[1] + self.height * (4 / 12)
                 Color:
                     group: 'body'
                     rgba: app.BODY_COLOR
                 # Arms
                 Line:
-                    points: self.pos[0] + self.width * (7 / 18), self.pos[1] + self.height * (13 / 24), self.pos[0] + self.width * (4 / 9), self.pos[1] + self.height * (15 / 24), self.pos[0] + self.width * (9 / 18), self.pos[1] + self.height * (13 / 24)
                     width: 2
+                    points:
+                        self.pos[0] + self.width * (7 / 18), self.pos[1] + self.height * (13 / 24), \
+                        self.pos[0] + self.width * (4 / 9), self.pos[1] + self.height * (15 / 24), \
+                        self.pos[0] + self.width * (9 / 18), self.pos[1] + self.height * (13 / 24)
                 Color:
                     group: 'body'
                     rgba: app.BODY_COLOR
                 # Legs
                 Line:
-                    points: self.pos[0] + self.width * (7 / 18), self.pos[1] + self.height * (2 / 12), self.pos[0] + self.width * (4 / 9), self.pos[1] + self.height * (4 / 12), self.pos[0] + self.width * (9 / 18), self.pos[1] + self.height * (2 / 12)
                     width: 2
+                    points:
+                        self.pos[0] + self.width * (7 / 18), self.pos[1] + self.height * (2 / 12), \
+                        self.pos[0] + self.width * (4 / 9), self.pos[1] + self.height * (4 / 12), \
+                        self.pos[0] + self.width * (9 / 18), self.pos[1] + self.height * (2 / 12)
+
 
         # Contains the hidden word to be guessed and updated with correct answers.
         Button:
