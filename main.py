@@ -17,7 +17,7 @@ WINDOWHEIGHT = 600  # size of window's height in pixels
 NUM_OF_GUESSES = 4  # number of guesses before game over
 INNER_MARGIN = 15  # distance of inner border from window edge in pixels
 OUTER_MARGIN = 10  # distance of outer border from window edge in pixels
-LINE_LENGTH = 13  # length of single line of capital le.
+LINE_LENGTH = 13  # length of single line of a capital letter.
 
 #           R    G    B    A
 SALMON = (0.58, 0.24, 0.28, 1.00)
