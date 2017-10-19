@@ -13,6 +13,6 @@ Todo list:
 - ~~Add restart after loss or win~~
 - ~~Create proper icon for restart button~~
 
-![](https://github.com/SolaOmi/HangmanKivy/blob/master/begin.png)
-![](https://github.com/SolaOmi/HangmanKivy/blob/master/mid.png)
-![](https://github.com/SolaOmi/HangmanKivy/blob/master/end.png)
+![](/begin.png)
+![](/mid.png)
+![](/end.png)
