@@ -1,17 +1,16 @@
 # Hangman
 
-Built classic [Hangman](https://en.wikipedia.org/wiki/Hangman_(game)) game using Kivy GUI library.
+A desktop version of the popular paper and pencil word [game](https://en.wikipedia.org/wiki/Hangman_(game)).
+It was built using the cross-platform python Graphical User Interface
+(GUI) library [Kivy](https://kivy.org/#home).
 
 Requirements:
 - Python
 - Kivy 1.9.1
 
-Todo list:
-- ~~Comment out main file~~
-- ~~Fix text wrap on hidden word~~
-- ~~Add Hangman~~ ~~bind to misses and animate~~
-- ~~Add restart after loss or win~~
-- ~~Create proper icon for restart button~~
+**Languages, Libraries & Frameworks:** Python, Kivy
+
+**Platform:** Linux, Windows
 
 ![](/begin.png)
 ![](/mid.png)
